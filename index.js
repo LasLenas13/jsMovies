@@ -2,14 +2,16 @@ let message = document.querySelector("#message")
 
 function deleteMovie (event){
     event.target.parentNode.remove()
-    message.textContent = "Bad Movie"
+    message.textContent = (`${event.target.previousSibling.textContent} "Bad Movie"`)
+    revealMessage()
 }
 
 function crossOffMovie (event) {
     event.target.classList.toggle('checked')
     if(event.target.classList.contains("checked")) {
-        message.textContent = "Movie Watched"
-    } else {message.textContent = "Movie added back!"}
+        message.textContent = ("Movie Watched" + event.target.textContent)
+    } else {message.textContent = "Movie added back!" + event.target.textContent}
+    revealMessage()
 }
 
 function addMovie (event) {
@@ -34,3 +36,7 @@ function addMovie (event) {
 
 document.querySelector('form').addEventListener("submit", addMovie)
 
+function revealMessage (){
+    message.classList.remove("hide")
+    setTimeout( () => {message.classList.add('hide')}, 1000)
+}
